@@ -1,0 +1,88 @@
+{
+  "name": "xast-util-feed",
+  "version": "0.0.0",
+  "description": "xast utility to build feeds (rss, atom)",
+  "license": "MIT",
+  "keywords": [
+    "unist",
+    "xast",
+    "xast-util",
+    "util",
+    "utility",
+    "xml",
+    "feed",
+    "rss",
+    "atom",
+    "syndicate"
+  ],
+  "repository": "syntax-tree/xast-util-feed",
+  "bugs": "https://github.com/syntax-tree/xast-util-feed/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "type": "module",
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "files": [
+    "lib/",
+    "index.mjs"
+  ],
+  "dependencies": {
+    "bcp-47-normalize": "^1.0.0",
+    "unist-builder": "^2.0.0",
+    "xastscript": "^2.0.0"
+  },
+  "devDependencies": {
+    "c8": "^7.0.0",
+    "concat-stream": "^2.0.0",
+    "prettier": "^2.0.0",
+    "regenerate": "^1.0.0",
+    "remark-cli": "^9.0.0",
+    "remark-preset-wooorm": "^8.0.0",
+    "tape": "^5.0.0",
+    "xast-util-to-xml": "^2.0.0",
+    "xo": "^0.37.0"
+  },
+  "scripts": {
+    "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
+    "test-api": "node test.mjs",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov node --experimental-modules test.mjs",
+    "test": "npm run format && npm run test-coverage"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "semi": false,
+    "trailingComma": "none"
+  },
+  "xo": {
+    "prettier": true,
+    "esnext": false,
+    "extensions": [
+      "mjs"
+    ],
+    "rules": {
+      "complexity": "off",
+      "eqeqeq": [
+        "error",
+        "always",
+        {
+          "null": "ignore"
+        }
+      ],
+      "no-eq-null": "off"
+    }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  }
+}
