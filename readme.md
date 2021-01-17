@@ -41,31 +41,31 @@ npm install xast-util-feed
 Say we have the following module, `example.mjs`
 
 ```js
-import {rss} from 'xast-util-feed'
+import {atom, rss} from 'xast-util-feed'
 import toXml from 'xast-util-to-xml'
 
-var tree = rss(
-  {
-    title: 'NYT > Top Stories',
-    url: 'https://www.nytimes.com',
-    feedUrl: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
-    lang: 'en',
-    author: 'The New York Times Company'
-  },
-  [
-    {
-      title: 'Senate Balances Impeachment Trial With an Incoming President',
-      url:
-        'https://www.nytimes.com/2021/01/14/us/politics/impeachment-senate-trial-trump.html',
-      description: 'Senate leaders etc etc etc.',
-      author: 'Nicholas Fandos and Catie Edmondson',
-      published: 'Fri, 15 Jan 2021 01:18:49 +0000',
-      tags: ['Senate', 'Murkowski, Lisa', 'Trump, Donald J']
-    }
-  ]
-)
+var channel = {
+  title: 'NYT > Top Stories',
+  url: 'https://www.nytimes.com',
+  feedUrl: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
+  lang: 'en',
+  author: 'The New York Times Company'
+}
 
-console.log(toXml(tree))
+var data = [
+  {
+    title: 'Senate Balances Impeachment Trial With an Incoming President',
+    url:
+      'https://www.nytimes.com/2021/01/14/us/politics/impeachment-senate-trial-trump.html',
+    descriptionHtml: '<p>Senate leaders etc etc etc.</p>',
+    author: 'Nicholas Fandos and Catie Edmondson',
+    published: 'Fri, 15 Jan 2021 01:18:49 +0000',
+    tags: ['Senate', 'Murkowski, Lisa', 'Trump, Donald J']
+  }
+]
+
+console.log(toXml(rss(channel, data)))
+console.log(toXml(atom(channel, data)))
 ```
 
 Now, running `node example.mjs` yields (pretty printed):
@@ -77,9 +77,9 @@ Now, running `node example.mjs` yields (pretty printed):
     <title>NYT > Top Stories</title>
     <description></description>
     <link>https://www.nytimes.com/</link>
-    <lastBuildDate>Fri, 15 Jan 2021 11:38:12 GMT</lastBuildDate>
-    <dc:date>2021-01-15T11:38:12.052Z</dc:date>
-    <atom:link href="https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jan 2021 09:00:54 GMT</lastBuildDate>
+    <dc:date>2021-01-17T09:00:54.781Z</dc:date>
+    <atom:link href="https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" rel="self" type="application/rss+xml"></atom:link>
     <language>en</language>
     <dc:language>en</dc:language>
     <copyright>© 2021 The New York Times Company</copyright>
@@ -94,10 +94,39 @@ Now, running `node example.mjs` yields (pretty printed):
       <category>Senate</category>
       <category>Murkowski, Lisa</category>
       <category>Trump, Donald J</category>
-      <description>Senate leaders etc etc etc.</description>
+      <description>&#x3C;p>Senate leaders etc etc etc.&#x3C;/p></description>
     </item>
   </channel>
 </rss>
+```
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>NYT > Top Stories</title>
+  <subtitle></subtitle>
+  <link>https://www.nytimes.com/</link>
+  <id>https://www.nytimes.com/</id>
+  <updated>Sun, 17 Jan 2021 09:00:54 GMT</updated>
+  <link href="https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" rel="self" type="application/atom+xml"></link>
+  <rights>© 2021 The New York Times Company</rights>
+  <author>
+    <name>The New York Times Company</name>
+  </author>
+  <category term="Senate"></category>
+  <category term="Murkowski, Lisa"></category>
+  <category term="Trump, Donald J"></category>
+  <entry>
+    <title>Senate Balances Impeachment Trial With an Incoming President</title>
+    <author>
+      <name>Nicholas Fandos and Catie Edmondson</name>
+    </author>
+    <link href="https://www.nytimes.com/2021/01/14/us/politics/impeachment-senate-trial-trump.html"></link>
+    <id>https://www.nytimes.com/2021/01/14/us/politics/impeachment-senate-trial-trump.html</id>
+    <published>2021-01-15T01:18:49.000Z</published>
+    <content type="html">&#x3C;p>Senate leaders etc etc etc.&#x3C;/p></content>
+  </entry>
+</feed>
 ```
 
 ## API
