@@ -25,10 +25,10 @@ blog posts, notes, and images).
 
 Just using either RSS or Atom is probably fine: no need to do both.
 
-Note that this package is ESM only: Node 12+ is required to use it and it must
-be imported instead of required.
-
 ## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
 
@@ -38,7 +38,7 @@ npm install xast-util-feed
 
 ## Use
 
-Say we have the following module, `example.mjs`
+Say we have the following module, `example.js`
 
 ```js
 import {atom, rss} from 'xast-util-feed'
@@ -68,7 +68,7 @@ console.log(toXml(rss(channel, data)))
 console.log(toXml(atom(channel, data)))
 ```
 
-Now, running `node example.mjs` yields (pretty printed):
+Now, running `node example.js` yields (pretty printed):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -130,6 +130,9 @@ Now, running `node example.mjs` yields (pretty printed):
 ```
 
 ## API
+
+This package exports the following identifiers: `atom`, `rss`.
+There is no default export.
 
 ### `rss(channel, data)`
 

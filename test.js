@@ -1,7 +1,5 @@
-'use strict'
-
 import test from 'tape'
-import {atom, rss} from './index.mjs'
+import {atom, rss} from './index.js'
 
 // Hack so the tests don’t need updating everytime…
 var ODate = global.Date
