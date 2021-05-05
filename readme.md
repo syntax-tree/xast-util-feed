@@ -42,7 +42,7 @@ Say we have the following module, `example.js`
 
 ```js
 import {atom, rss} from 'xast-util-feed'
-import toXml from 'xast-util-to-xml'
+import {toXml} from 'xast-util-to-xml'
 
 var channel = {
   title: 'NYT > Top Stories',
