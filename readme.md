@@ -258,7 +258,7 @@ An enclosure, such as an image or audio, is an object with the following fields:
 
 *   `url` (`string`, example: `'http://dallas.example.com/joebob_050689.mp3'`)
     — Full URL to the resource
-*   `length` (`number`, example: `24986239`)
+*   `size` (`number`, example: `24986239`)
     — Resource size in bytes
 *   `type` (`string`, example: `'audio/mpeg'`)
     — Mime type of the resource

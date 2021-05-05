@@ -4,7 +4,8 @@ import {atom, rss} from './index.js'
 // Hack so the tests don’t need updating everytime…
 var ODate = global.Date
 
-global.Date = function (value) {
+// @ts-ignore
+global.Date = function (/** @type {string|number} */ value) {
   return new ODate(value || 1234567890123)
 }
 
@@ -15,6 +16,7 @@ test.onFinish(function () {
 test('rss', function (t) {
   t.throws(
     function () {
+      // @ts-ignore runtime
       rss()
     },
     /Expected `channel.title` to be set/,
@@ -23,6 +25,7 @@ test('rss', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime
       rss({title: 'a'})
     },
     /Expected `channel.url` to be set/,
@@ -457,6 +460,7 @@ test('rss', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       rss({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
     },
     /Expected `author.name` to be set/,
@@ -646,6 +650,7 @@ test('rss', function (t) {
   t.throws(
     function () {
       rss({title: 'a', url: 'https://example.com'}, [
+        // @ts-ignore runtime.
         {title: 'b', enclosure: {}}
       ])
     },
@@ -656,6 +661,7 @@ test('rss', function (t) {
   t.throws(
     function () {
       rss({title: 'a', url: 'https://example.com'}, [
+        // @ts-ignore runtime.
         {title: 'b', enclosure: {url: 'c'}}
       ])
     },
@@ -666,6 +672,7 @@ test('rss', function (t) {
   t.throws(
     function () {
       rss({title: 'a', url: 'https://example.com'}, [
+        // @ts-ignore runtime.
         {title: 'b', enclosure: {url: 'c', size: 1}}
       ])
     },
@@ -726,6 +733,7 @@ test('rss', function (t) {
 test('atom', function (t) {
   t.throws(
     function () {
+      // @ts-ignore runtime.
       atom()
     },
     /Expected `channel.title` to be set/,
@@ -734,6 +742,7 @@ test('atom', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       atom({title: 'a'})
     },
     /Expected `channel.url` to be set/,
@@ -1032,6 +1041,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c'}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1052,6 +1062,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {description: 'c'}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1072,6 +1083,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {descriptionHtml: '<p>c</p>'}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1092,6 +1104,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {description: 'c', descriptionHtml: '<p>c</p>'}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1112,6 +1125,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', author: 'd'}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1144,6 +1158,7 @@ test('atom', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       atom({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
     },
     /Expected `author.name` to be set/,
@@ -1153,6 +1168,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c'}}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1186,6 +1202,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', email: 'd'}}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1235,6 +1252,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', url: 'https://example.org'}}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1274,6 +1292,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', url: 'https://example.com/b.html'}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1306,6 +1325,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', tags: ['x', 'y']}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1326,6 +1346,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', published: 1231111111111}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1352,6 +1373,7 @@ test('atom', function (t) {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', modified: 1231111111111}
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1378,6 +1400,7 @@ test('atom', function (t) {
   t.throws(
     function () {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
+        // @ts-ignore runtime.
         {title: 'c', enclosure: {}}
       ])
     },
@@ -1388,6 +1411,7 @@ test('atom', function (t) {
   t.throws(
     function () {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
+        // @ts-ignore runtime.
         {title: 'c', enclosure: {url: 'd'}}
       ])
     },
@@ -1398,6 +1422,7 @@ test('atom', function (t) {
   t.throws(
     function () {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
+        // @ts-ignore runtime.
         {title: 'c', enclosure: {url: 'd', size: 1}}
       ])
     },
@@ -1425,6 +1450,7 @@ test('atom', function (t) {
           type: 'image/png'
         }
       }
+      // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
