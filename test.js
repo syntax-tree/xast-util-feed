@@ -36,7 +36,7 @@ test('rss', function (t) {
     function () {
       rss({title: 'a', url: 'b'})
     },
-    /Invalid URL: b/,
+    /Invalid URL/,
     'should throw on incorrect `url`'
   )
 
@@ -686,7 +686,7 @@ test('rss', function (t) {
         {title: 'b', enclosure: {url: 'c', size: 1, type: 'd'}}
       ])
     },
-    /Invalid URL: c/,
+    /Invalid URL/,
     'should throw on incorrect `url` in enclosure'
   )
 
@@ -753,7 +753,7 @@ test('atom', function (t) {
     function () {
       atom({title: 'a', url: 'b'})
     },
-    /Invalid URL: b/,
+    /Invalid URL/,
     'should throw on incorrect `url`'
   )
 
@@ -1245,7 +1245,7 @@ test('atom', function (t) {
         {title: 'b', author: {name: 'c', url: 'd'}}
       ])
     },
-    /Invalid URL: d/,
+    /Invalid URL/,
     'should throw on author w/ incorrect `url`'
   )
 
@@ -1436,7 +1436,7 @@ test('atom', function (t) {
         {title: 'c', enclosure: {url: 'd', size: 1, type: 'e'}}
       ])
     },
-    /Invalid URL: d/,
+    /Invalid URL/,
     'should throw on incorrect `url` in enclosure'
   )
 
