@@ -4,7 +4,7 @@ import {atom, rss} from './index.js'
 // Hack so the tests don’t need updating everytime…
 const ODate = global.Date
 
-// @ts-ignore
+// @ts-expect-error
 global.Date = function (/** @type {string|number} */ value) {
   return new ODate(value || 1_234_567_890_123)
 }
@@ -16,7 +16,7 @@ test.onFinish(() => {
 test('rss', (t) => {
   t.throws(
     () => {
-      // @ts-ignore runtime
+      // @ts-expect-error runtime
       rss()
     },
     /Expected `channel.title` to be set/,
@@ -25,7 +25,7 @@ test('rss', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime
+      // @ts-expect-error runtime
       rss({title: 'a'})
     },
     /Expected `channel.url` to be set/,
@@ -762,7 +762,7 @@ test('rss', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       rss({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
     },
     /Expected `author.name` to be set/,
@@ -1240,7 +1240,7 @@ test('rss', (t) => {
   t.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [
-        // @ts-ignore runtime.
+        // @ts-expect-error runtime.
         {title: 'b', enclosure: {}}
       ])
     },
@@ -1251,7 +1251,7 @@ test('rss', (t) => {
   t.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [
-        // @ts-ignore runtime.
+        // @ts-expect-error runtime.
         {title: 'b', enclosure: {url: 'c'}}
       ])
     },
@@ -1262,7 +1262,7 @@ test('rss', (t) => {
   t.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [
-        // @ts-ignore runtime.
+        // @ts-expect-error runtime.
         {title: 'b', enclosure: {url: 'c', size: 1}}
       ])
     },
@@ -1370,7 +1370,7 @@ test('rss', (t) => {
 test('atom', (t) => {
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       atom()
     },
     /Expected `channel.title` to be set/,
@@ -1379,7 +1379,7 @@ test('atom', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       atom({title: 'a'})
     },
     /Expected `channel.url` to be set/,
@@ -1697,7 +1697,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c'}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1718,7 +1718,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {description: 'c'}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1739,7 +1739,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {descriptionHtml: '<p>c</p>'}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1760,7 +1760,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {description: 'c', descriptionHtml: '<p>c</p>'}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1781,7 +1781,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', author: 'd'}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1814,7 +1814,7 @@ test('atom', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       atom({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
     },
     /Expected `author.name` to be set/,
@@ -1824,7 +1824,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c'}}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1858,7 +1858,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', email: 'd'}}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1908,7 +1908,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', url: 'https://example.org'}}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1948,7 +1948,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', url: 'https://example.com/b.html'}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -1981,7 +1981,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', tags: ['x', 'y']}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -2002,7 +2002,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', published: 1_231_111_111_111}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -2029,7 +2029,7 @@ test('atom', (t) => {
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', modified: 1_231_111_111_111}
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
@@ -2056,7 +2056,7 @@ test('atom', (t) => {
   t.throws(
     () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
-        // @ts-ignore runtime.
+        // @ts-expect-error runtime.
         {title: 'c', enclosure: {}}
       ])
     },
@@ -2067,7 +2067,7 @@ test('atom', (t) => {
   t.throws(
     () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
-        // @ts-ignore runtime.
+        // @ts-expect-error runtime.
         {title: 'c', enclosure: {url: 'd'}}
       ])
     },
@@ -2078,7 +2078,7 @@ test('atom', (t) => {
   t.throws(
     () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
-        // @ts-ignore runtime.
+        // @ts-expect-error runtime.
         {title: 'c', enclosure: {url: 'd', size: 1}}
       ])
     },
@@ -2106,7 +2106,7 @@ test('atom', (t) => {
           type: 'image/png'
         }
       }
-      // @ts-ignore hush.
+      // @ts-expect-error hush.
     ]).children[1].children.pop(),
     {
       type: 'element',
