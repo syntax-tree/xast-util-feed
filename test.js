@@ -172,175 +172,246 @@ test('rss', function (t) {
   )
 
   t.deepEqual(
-    rss({title: 'a', url: 'https://example.com', description: 'b'}).children[1]
-      .children[0].children,
-    [
-      {
-        type: 'element',
-        name: 'title',
-        attributes: {},
-        children: [{type: 'text', value: 'a'}]
+    rss({title: 'a', url: 'https://example.com', description: 'b'}).children[1],
+    {
+      type: 'element',
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
       },
-      {
-        type: 'element',
-        name: 'description',
-        attributes: {},
-        children: [{type: 'text', value: 'b'}]
-      },
-      {
-        type: 'element',
-        name: 'link',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'lastBuildDate',
-        attributes: {},
-        children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
-      },
-      {
-        type: 'element',
-        name: 'dc:date',
-        attributes: {},
-        children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
-      }
-    ],
+      children: [
+        {
+          type: 'element',
+          name: 'channel',
+          attributes: {},
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: [{type: 'text', value: 'b'}]
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            }
+          ]
+        }
+      ]
+    },
     'should support `description`'
   )
 
   t.deepEqual(
-    rss({title: 'a', url: 'https://example.com', lang: 'nl-NL'}).children[1]
-      .children[0].children,
-    [
-      {
-        type: 'element',
-        name: 'title',
-        attributes: {},
-        children: [{type: 'text', value: 'a'}]
+    rss({title: 'a', url: 'https://example.com', lang: 'nl-NL'}).children[1],
+    {
+      type: 'element',
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
       },
-      {type: 'element', name: 'description', attributes: {}, children: []},
-      {
-        type: 'element',
-        name: 'link',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'lastBuildDate',
-        attributes: {},
-        children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
-      },
-      {
-        type: 'element',
-        name: 'dc:date',
-        attributes: {},
-        children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
-      },
-      {
-        type: 'element',
-        name: 'language',
-        attributes: {},
-        children: [{type: 'text', value: 'nl'}]
-      },
-      {
-        type: 'element',
-        name: 'dc:language',
-        attributes: {},
-        children: [{type: 'text', value: 'nl'}]
-      }
-    ],
+      children: [
+        {
+          type: 'element',
+          name: 'channel',
+          attributes: {},
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'language',
+              attributes: {},
+              children: [{type: 'text', value: 'nl'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:language',
+              attributes: {},
+              children: [{type: 'text', value: 'nl'}]
+            }
+          ]
+        }
+      ]
+    },
     'should support `lang`'
   )
 
   t.deepEqual(
-    rss({title: 'a', url: 'https://example.com', author: 'b'}).children[1]
-      .children[0].children,
-    [
-      {
-        type: 'element',
-        name: 'title',
-        attributes: {},
-        children: [{type: 'text', value: 'a'}]
+    rss({title: 'a', url: 'https://example.com', author: 'b'}).children[1],
+    {
+      type: 'element',
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
       },
-      {type: 'element', name: 'description', attributes: {}, children: []},
-      {
-        type: 'element',
-        name: 'link',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'lastBuildDate',
-        attributes: {},
-        children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
-      },
-      {
-        type: 'element',
-        name: 'dc:date',
-        attributes: {},
-        children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
-      },
-      {
-        type: 'element',
-        name: 'copyright',
-        attributes: {},
-        children: [{type: 'text', value: '© 2009 b'}]
-      },
-      {
-        type: 'element',
-        name: 'dc:rights',
-        attributes: {},
-        children: [{type: 'text', value: '© 2009 b'}]
-      }
-    ],
+      children: [
+        {
+          type: 'element',
+          name: 'channel',
+          attributes: {},
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'copyright',
+              attributes: {},
+              children: [{type: 'text', value: '© 2009 b'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:rights',
+              attributes: {},
+              children: [{type: 'text', value: '© 2009 b'}]
+            }
+          ]
+        }
+      ]
+    },
     'should support `author` (for copyright)'
   )
 
   t.deepEqual(
-    rss({title: 'a', url: 'https://example.com', tags: ['b', 'c']}).children[1]
-      .children[0].children,
-    [
-      {
-        type: 'element',
-        name: 'title',
-        attributes: {},
-        children: [{type: 'text', value: 'a'}]
+    rss({title: 'a', url: 'https://example.com', tags: ['b', 'c']}).children[1],
+    {
+      type: 'element',
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
       },
-      {type: 'element', name: 'description', attributes: {}, children: []},
-      {
-        type: 'element',
-        name: 'link',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'lastBuildDate',
-        attributes: {},
-        children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
-      },
-      {
-        type: 'element',
-        name: 'dc:date',
-        attributes: {},
-        children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
-      },
-      {
-        type: 'element',
-        name: 'category',
-        attributes: {},
-        children: [{type: 'text', value: 'b'}]
-      },
-      {
-        type: 'element',
-        name: 'category',
-        attributes: {},
-        children: [{type: 'text', value: 'c'}]
-      }
-    ],
+      children: [
+        {
+          type: 'element',
+          name: 'channel',
+          attributes: {},
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'category',
+              attributes: {},
+              children: [{type: 'text', value: 'b'}]
+            },
+            {
+              type: 'element',
+              name: 'category',
+              attributes: {},
+              children: [{type: 'text', value: 'c'}]
+            }
+          ]
+        }
+      ]
+    },
     'should support `tags`'
   )
 
@@ -353,19 +424,64 @@ test('rss', function (t) {
   )
 
   t.deepEqual(
-    rss({title: 'a', url: 'https://example.com'}, [
-      {title: 'b'}
-    ]).children[1].children[0].children.pop(),
+    rss({title: 'a', url: 'https://example.com'}, [{title: 'b'}]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -373,19 +489,65 @@ test('rss', function (t) {
   )
 
   t.deepEqual(
-    rss({title: 'a', url: 'https://example.com'}, [
-      {description: 'b'}
-    ]).children[1].children[0].children.pop(),
+    rss({title: 'a', url: 'https://example.com'}, [{description: 'b'}])
+      .children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'description',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'description',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -395,17 +557,64 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {descriptionHtml: '<p>b</p>'}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'description',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: '<p>b</p>'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'description',
+                  attributes: {},
+                  children: [{type: 'text', value: '<p>b</p>'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -415,17 +624,64 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {description: 'b', descriptionHtml: '<p>b</p>'}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'description',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: '<p>b</p>'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'description',
+                  attributes: {},
+                  children: [{type: 'text', value: '<p>b</p>'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -433,25 +689,71 @@ test('rss', function (t) {
   )
 
   t.deepEqual(
-    rss({title: 'a', url: 'https://example.com'}, [
-      {title: 'b', author: 'c'}
-    ]).children[1].children[0].children.pop(),
+    rss({title: 'a', url: 'https://example.com'}, [{title: 'b', author: 'c'}])
+      .children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'dc:creator',
-          attributes: {},
-          children: [{type: 'text', value: 'c'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'dc:creator',
+                  attributes: {},
+                  children: [{type: 'text', value: 'c'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -470,23 +772,70 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c'}}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'dc:creator',
-          attributes: {},
-          children: [{type: 'text', value: 'c'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'dc:creator',
+                  attributes: {},
+                  children: [{type: 'text', value: 'c'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -496,29 +845,76 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', email: 'd'}}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'dc:creator',
-          attributes: {},
-          children: [{type: 'text', value: 'c'}]
-        },
-        {
-          type: 'element',
-          name: 'author',
-          attributes: {},
-          children: [{type: 'text', value: 'd (c)'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'dc:creator',
+                  attributes: {},
+                  children: [{type: 'text', value: 'c'}]
+                },
+                {
+                  type: 'element',
+                  name: 'author',
+                  attributes: {},
+                  children: [{type: 'text', value: 'd (c)'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -528,29 +924,80 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', url: 'https://example.com/b.html'}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'link',
-          attributes: {},
-          children: [{type: 'text', value: 'https://example.com/b.html'}]
-        },
-        {
-          type: 'element',
-          name: 'guid',
-          attributes: {isPermaLink: 'false'},
-          children: [{type: 'text', value: 'https://example.com/b.html'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'link',
+                  attributes: {},
+                  children: [
+                    {type: 'text', value: 'https://example.com/b.html'}
+                  ]
+                },
+                {
+                  type: 'element',
+                  name: 'guid',
+                  attributes: {isPermaLink: 'false'},
+                  children: [
+                    {type: 'text', value: 'https://example.com/b.html'}
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -560,29 +1007,76 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', tags: ['a', 'b']}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'category',
-          attributes: {},
-          children: [{type: 'text', value: 'a'}]
-        },
-        {
-          type: 'element',
-          name: 'category',
-          attributes: {},
-          children: [{type: 'text', value: 'b'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'category',
+                  attributes: {},
+                  children: [{type: 'text', value: 'a'}]
+                },
+                {
+                  type: 'element',
+                  name: 'category',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -592,29 +1086,78 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', published: 1231111111111}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'pubDate',
-          attributes: {},
-          children: [{type: 'text', value: 'Sun, 04 Jan 2009 23:18:31 GMT'}]
-        },
-        {
-          type: 'element',
-          name: 'dc:date',
-          attributes: {},
-          children: [{type: 'text', value: '2009-01-04T23:18:31.111Z'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'pubDate',
+                  attributes: {},
+                  children: [
+                    {type: 'text', value: 'Sun, 04 Jan 2009 23:18:31 GMT'}
+                  ]
+                },
+                {
+                  type: 'element',
+                  name: 'dc:date',
+                  attributes: {},
+                  children: [{type: 'text', value: '2009-01-04T23:18:31.111Z'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -624,23 +1167,70 @@ test('rss', function (t) {
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', modified: 1231111111111}
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'dc:modified',
-          attributes: {},
-          children: [{type: 'text', value: '2009-01-04T23:18:31.111Z'}]
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'dc:modified',
+                  attributes: {},
+                  children: [{type: 'text', value: '2009-01-04T23:18:31.111Z'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -700,27 +1290,74 @@ test('rss', function (t) {
           type: 'image/png'
         }
       }
-    ]).children[1].children[0].children.pop(),
+    ]).children[1],
     {
       type: 'element',
-      name: 'item',
-      attributes: {},
+      name: 'rss',
+      attributes: {
+        version: '2.0',
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/'
+      },
       children: [
         {
           type: 'element',
-          name: 'title',
+          name: 'channel',
           attributes: {},
-          children: [{type: 'text', value: 'b'}]
-        },
-        {
-          type: 'element',
-          name: 'enclosure',
-          attributes: {
-            url: 'https://example.com/123.png',
-            length: '1',
-            type: 'image/png'
-          },
-          children: []
+          children: [
+            {
+              type: 'element',
+              name: 'title',
+              attributes: {},
+              children: [{type: 'text', value: 'a'}]
+            },
+            {
+              type: 'element',
+              name: 'description',
+              attributes: {},
+              children: []
+            },
+            {
+              type: 'element',
+              name: 'link',
+              attributes: {},
+              children: [{type: 'text', value: 'https://example.com/'}]
+            },
+            {
+              type: 'element',
+              name: 'lastBuildDate',
+              attributes: {},
+              children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+            },
+            {
+              type: 'element',
+              name: 'dc:date',
+              attributes: {},
+              children: [{type: 'text', value: '2009-02-13T23:31:30.123Z'}]
+            },
+            {
+              type: 'element',
+              name: 'item',
+              attributes: {},
+              children: [
+                {
+                  type: 'element',
+                  name: 'title',
+                  attributes: {},
+                  children: [{type: 'text', value: 'b'}]
+                },
+                {
+                  type: 'element',
+                  name: 'enclosure',
+                  attributes: {
+                    url: 'https://example.com/123.png',
+                    length: '1',
+                    type: 'image/png'
+                  },
+                  children: []
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -856,40 +1493,45 @@ test('atom', function (t) {
   )
 
   t.deepEqual(
-    atom({title: 'a', url: 'https://example.com', description: 'b'}).children[1]
-      .children,
-    [
-      {
-        type: 'element',
-        name: 'title',
-        attributes: {},
-        children: [{type: 'text', value: 'a'}]
-      },
-      {
-        type: 'element',
-        name: 'subtitle',
-        attributes: {},
-        children: [{type: 'text', value: 'b'}]
-      },
-      {
-        type: 'element',
-        name: 'link',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'id',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'updated',
-        attributes: {},
-        children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
-      }
-    ],
+    atom({title: 'a', url: 'https://example.com', description: 'b'})
+      .children[1],
+    {
+      type: 'element',
+      name: 'feed',
+      attributes: {xmlns: 'http://www.w3.org/2005/Atom'},
+      children: [
+        {
+          type: 'element',
+          name: 'title',
+          attributes: {},
+          children: [{type: 'text', value: 'a'}]
+        },
+        {
+          type: 'element',
+          name: 'subtitle',
+          attributes: {},
+          children: [{type: 'text', value: 'b'}]
+        },
+        {
+          type: 'element',
+          name: 'link',
+          attributes: {},
+          children: [{type: 'text', value: 'https://example.com/'}]
+        },
+        {
+          type: 'element',
+          name: 'id',
+          attributes: {},
+          children: [{type: 'text', value: 'https://example.com/'}]
+        },
+        {
+          type: 'element',
+          name: 'updated',
+          attributes: {},
+          children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+        }
+      ]
+    },
     'should support `description`'
   )
 
@@ -931,94 +1573,108 @@ test('atom', function (t) {
   )
 
   t.deepEqual(
-    atom({title: 'a', url: 'https://example.com', author: 'b'}).children[1]
-      .children,
-    [
-      {
-        type: 'element',
-        name: 'title',
-        attributes: {},
-        children: [{type: 'text', value: 'a'}]
-      },
-      {type: 'element', name: 'subtitle', attributes: {}, children: []},
-      {
-        type: 'element',
-        name: 'link',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'id',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'updated',
-        attributes: {},
-        children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
-      },
-      {
-        type: 'element',
-        name: 'rights',
-        attributes: {},
-        children: [{type: 'text', value: '© 2009 b'}]
-      },
-      {
-        type: 'element',
-        name: 'author',
-        attributes: {},
-        children: [
-          {
-            type: 'element',
-            name: 'name',
-            attributes: {},
-            children: [{type: 'text', value: 'b'}]
-          }
-        ]
-      }
-    ],
+    atom({title: 'a', url: 'https://example.com', author: 'b'}).children[1],
+    {
+      type: 'element',
+      name: 'feed',
+      attributes: {xmlns: 'http://www.w3.org/2005/Atom'},
+      children: [
+        {
+          type: 'element',
+          name: 'title',
+          attributes: {},
+          children: [{type: 'text', value: 'a'}]
+        },
+        {type: 'element', name: 'subtitle', attributes: {}, children: []},
+        {
+          type: 'element',
+          name: 'link',
+          attributes: {},
+          children: [{type: 'text', value: 'https://example.com/'}]
+        },
+        {
+          type: 'element',
+          name: 'id',
+          attributes: {},
+          children: [{type: 'text', value: 'https://example.com/'}]
+        },
+        {
+          type: 'element',
+          name: 'updated',
+          attributes: {},
+          children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+        },
+        {
+          type: 'element',
+          name: 'rights',
+          attributes: {},
+          children: [{type: 'text', value: '© 2009 b'}]
+        },
+        {
+          type: 'element',
+          name: 'author',
+          attributes: {},
+          children: [
+            {
+              type: 'element',
+              name: 'name',
+              attributes: {},
+              children: [{type: 'text', value: 'b'}]
+            }
+          ]
+        }
+      ]
+    },
     'should support `author`'
   )
 
   t.deepEqual(
-    atom({title: 'a', url: 'https://example.com', tags: ['b', 'c']}).children[1]
-      .children,
-    [
-      {
-        type: 'element',
-        name: 'title',
-        attributes: {},
-        children: [{type: 'text', value: 'a'}]
-      },
-      {type: 'element', name: 'subtitle', attributes: {}, children: []},
-      {
-        type: 'element',
-        name: 'link',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'id',
-        attributes: {},
-        children: [{type: 'text', value: 'https://example.com/'}]
-      },
-      {
-        type: 'element',
-        name: 'updated',
-        attributes: {},
-        children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
-      },
-      {
-        type: 'element',
-        name: 'category',
-        attributes: {term: 'b'},
-        children: []
-      },
-      {type: 'element', name: 'category', attributes: {term: 'c'}, children: []}
-    ],
+    atom({title: 'a', url: 'https://example.com', tags: ['b', 'c']})
+      .children[1],
+    {
+      type: 'element',
+      name: 'feed',
+      attributes: {xmlns: 'http://www.w3.org/2005/Atom'},
+      children: [
+        {
+          type: 'element',
+          name: 'title',
+          attributes: {},
+          children: [{type: 'text', value: 'a'}]
+        },
+        {type: 'element', name: 'subtitle', attributes: {}, children: []},
+        {
+          type: 'element',
+          name: 'link',
+          attributes: {},
+          children: [{type: 'text', value: 'https://example.com/'}]
+        },
+        {
+          type: 'element',
+          name: 'id',
+          attributes: {},
+          children: [{type: 'text', value: 'https://example.com/'}]
+        },
+        {
+          type: 'element',
+          name: 'updated',
+          attributes: {},
+          children: [{type: 'text', value: 'Fri, 13 Feb 2009 23:31:30 GMT'}]
+        },
+        {
+          type: 'element',
+          name: 'category',
+          attributes: {term: 'b'},
+          children: []
+        },
+        {
+          type: 'element',
+          name: 'category',
+          attributes: {term: 'c'},
+          children: []
+        }
+      ]
+    },
     'should support `tags`'
   )
 
