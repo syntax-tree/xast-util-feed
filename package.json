@@ -75,19 +75,7 @@
     "prettier": true,
     "rules": {
       "complexity": "off",
-      "eqeqeq": [
-        "error",
-        "always",
-        {
-          "null": "ignore"
-        }
-      ],
-      "no-eq-null": "off",
-      "no-var": "off",
-      "prefer-arrow-callback": "off",
-      "unicorn/explicit-length-check": "off",
-      "unicorn/numeric-separators-style": "off",
-      "unicorn/prefer-node-protocol": "off"
+      "unicorn/explicit-length-check": "off"
     }
   },
   "remarkConfig": {

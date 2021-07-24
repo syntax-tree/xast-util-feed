@@ -44,7 +44,7 @@ Say we have the following module, `example.js`
 import {atom, rss} from 'xast-util-feed'
 import {toXml} from 'xast-util-to-xml'
 
-var channel = {
+const channel = {
   title: 'NYT > Top Stories',
   url: 'https://www.nytimes.com',
   feedUrl: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
@@ -52,7 +52,7 @@ var channel = {
   author: 'The New York Times Company'
 }
 
-var data = [
+const data = [
   {
     title: 'Senate Balances Impeachment Trial With an Incoming President',
     url:

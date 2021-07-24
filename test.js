@@ -2,20 +2,20 @@ import test from 'tape'
 import {atom, rss} from './index.js'
 
 // Hack so the tests don’t need updating everytime…
-var ODate = global.Date
+const ODate = global.Date
 
 // @ts-ignore
 global.Date = function (/** @type {string|number} */ value) {
-  return new ODate(value || 1234567890123)
+  return new ODate(value || 1_234_567_890_123)
 }
 
-test.onFinish(function () {
+test.onFinish(() => {
   global.Date = ODate
 })
 
-test('rss', function (t) {
+test('rss', (t) => {
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime
       rss()
     },
@@ -24,7 +24,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime
       rss({title: 'a'})
     },
@@ -33,7 +33,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       rss({title: 'a', url: 'b'})
     },
     /Invalid URL/,
@@ -416,7 +416,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       rss({title: 'a', url: 'https://example.com'}, [{}])
     },
     /Expected either `title` or `description` to be set in entry `0`/,
@@ -761,7 +761,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       rss({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
     },
@@ -1085,7 +1085,7 @@ test('rss', function (t) {
 
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
-      {title: 'b', published: 1231111111111}
+      {title: 'b', published: 1_231_111_111_111}
     ]).children[1],
     {
       type: 'element',
@@ -1166,7 +1166,7 @@ test('rss', function (t) {
 
   t.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
-      {title: 'b', modified: 1231111111111}
+      {title: 'b', modified: 1_231_111_111_111}
     ]).children[1],
     {
       type: 'element',
@@ -1238,7 +1238,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       rss({title: 'a', url: 'https://example.com'}, [
         // @ts-ignore runtime.
         {title: 'b', enclosure: {}}
@@ -1249,7 +1249,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       rss({title: 'a', url: 'https://example.com'}, [
         // @ts-ignore runtime.
         {title: 'b', enclosure: {url: 'c'}}
@@ -1260,7 +1260,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       rss({title: 'a', url: 'https://example.com'}, [
         // @ts-ignore runtime.
         {title: 'b', enclosure: {url: 'c', size: 1}}
@@ -1271,7 +1271,7 @@ test('rss', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       rss({title: 'a', url: 'https://example.com'}, [
         {title: 'b', enclosure: {url: 'c', size: 1, type: 'd'}}
       ])
@@ -1367,9 +1367,9 @@ test('rss', function (t) {
   t.end()
 })
 
-test('atom', function (t) {
+test('atom', (t) => {
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       atom()
     },
@@ -1378,7 +1378,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       atom({title: 'a'})
     },
@@ -1387,7 +1387,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', url: 'b'})
     },
     /Invalid URL/,
@@ -1679,7 +1679,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', url: 'https://example.com'}, [{}])
     },
     /Expected either `title` or `description` to be set in entry `0`/,
@@ -1687,7 +1687,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', url: 'https://example.com'}, [{title: 'b'}])
     },
     /Expected `author` to be set in entry `0` or in the channel/,
@@ -1813,7 +1813,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       atom({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
     },
@@ -1896,7 +1896,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', url: 'https://example.com'}, [
         {title: 'b', author: {name: 'c', url: 'd'}}
       ])
@@ -2001,7 +2001,7 @@ test('atom', function (t) {
 
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
-      {title: 'c', published: 1231111111111}
+      {title: 'c', published: 1_231_111_111_111}
       // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
@@ -2028,7 +2028,7 @@ test('atom', function (t) {
 
   t.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
-      {title: 'c', modified: 1231111111111}
+      {title: 'c', modified: 1_231_111_111_111}
       // @ts-ignore hush.
     ]).children[1].children.pop(),
     {
@@ -2054,7 +2054,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         // @ts-ignore runtime.
         {title: 'c', enclosure: {}}
@@ -2065,7 +2065,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         // @ts-ignore runtime.
         {title: 'c', enclosure: {url: 'd'}}
@@ -2076,7 +2076,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         // @ts-ignore runtime.
         {title: 'c', enclosure: {url: 'd', size: 1}}
@@ -2087,7 +2087,7 @@ test('atom', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         {title: 'c', enclosure: {url: 'd', size: 1, type: 'e'}}
       ])
