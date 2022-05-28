@@ -200,7 +200,7 @@ Or an object with the following fields:
 
 ###### `channel.tags`
 
-Categories of the channel (`Array.<string>?`, example: `['JavaScript',
+Categories of the channel (`Array<string>?`, example: `['JavaScript',
 'React']`).
 
 ### `Entry`
@@ -249,7 +249,7 @@ When the entry was last modified (`Date` or value for `new Date(x)`, optional).
 
 ###### `entry.tags`
 
-Categories of the entry (`Array.<string>?`, example: `['laravel',
+Categories of the entry (`Array<string>?`, example: `['laravel',
 'debugging']`).
 
 ###### `entry.enclosure`
