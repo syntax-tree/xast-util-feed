@@ -8,10 +8,34 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-**[xast][]** utility to build (web) feeds ([RSS][], [Atom][]).
+[xast][] utility to build (web) feeds ([RSS][], [Atom][]).
 
-This package focusses on a small set of widely used and supported parts of
-feeds.
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`rss(channel, data)`](#rsschannel-data)
+    *   [`atom(channel, data)`](#atomchannel-data)
+    *   [`Channel`](#channel-1)
+    *   [`Entry`](#entry)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package generates RSS or Atom feeds from data.
+
+## When should I use this?
+
+This package helps you add feeds to your site.
+It focusses on a small set of widely used and supported parts of feeds.
 It has a few good options instead of overwhelming with hundreds of things to
 configure.
 If you do need more things, well: this utility gives you a syntax tree, which
@@ -20,25 +44,35 @@ you can change.
 It’s good to use this package to build several feeds and to only include recent
 posts (often 15-20 items are included in a channel).
 You should make a channel for all your posts; when relevant, separate channels
-per language; and potentially, channels per post type (e.g., separate ones for
-blog posts, notes, and images).
+per language as well; and potentially, channels per post type (such as separate
+ones for blog posts, notes, and images).
 
 Just using either RSS or Atom is probably fine: no need to do both.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
 
 ```sh
 npm install xast-util-feed
 ```
 
-## Use
+In Deno with [`esm.sh`][esmsh]:
 
-Say we have the following module, `example.js`
+```js
+import {atom, rss} from 'https://esm.sh/xast-util-feed@1'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {atom, rss} from 'https://esm.sh/xast-util-feed@1?bundle'
+</script>
+```
+
+## Use
 
 ```js
 import {atom, rss} from 'xast-util-feed'
@@ -68,7 +102,7 @@ console.log(toXml(rss(channel, data)))
 console.log(toXml(atom(channel, data)))
 ```
 
-Now, running `node example.js` yields (pretty printed):
+Yields (pretty printed):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -131,7 +165,7 @@ Now, running `node example.js` yields (pretty printed):
 
 ## API
 
-This package exports the following identifiers: `atom`, `rss`.
+This package exports the identifiers `atom` and `rss`.
 There is no default export.
 
 ### `rss(channel, data)`
@@ -148,7 +182,7 @@ List of [`Entry`][entry] objects.
 
 ###### Returns
 
-[`Root`][root] — [xast][] root.
+[xast][] root ([`Root`][root]).
 
 ### `atom(channel, data)`
 
@@ -172,7 +206,7 @@ Full URL to the *site* (`string`, **required**, example:
 ###### `channel.feedUrl`
 
 Full URL to this channel (`string?`, example: `'https://www.adweek.com/feed/'`).
-Make sure to pass different ones to `rss` and `atom`!
+Make sure to pass different ones to `rss` and `atom` when you build both!
 You *should* define this.
 
 ###### `channel.description`
@@ -257,11 +291,23 @@ Categories of the entry (`Array<string>?`, example: `['laravel',
 An enclosure, such as an image or audio, is an object with the following fields:
 
 *   `url` (`string`, example: `'http://dallas.example.com/joebob_050689.mp3'`)
-    — Full URL to the resource
+    — full URL to the resource
 *   `size` (`number`, example: `24986239`)
-    — Resource size in bytes
+    — resource size in bytes
 *   `type` (`string`, example: `'audio/mpeg'`)
-    — Mime type of the resource
+    — mime type of the resource
+
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports the additional types `Author`, `Enclosure`, `Channel`, and `Entry`.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
 
 ## Security
 
@@ -278,8 +324,8 @@ XML can be a dangerous language: don’t trust user-provided data.
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`syntax-tree/.github`][health] for
+ways to get started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
@@ -320,15 +366,23 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[typescript]: https://www.typescriptlang.org
+
 [license]: license
 
 [author]: https://wooorm.com
 
-[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
+[health]: https://github.com/syntax-tree/.github
 
-[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
+[contributing]: https://github.com/syntax-tree/.github/blob/main/contributing.md
 
-[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+[support]: https://github.com/syntax-tree/.github/blob/main/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/main/code-of-conduct.md
 
 [xast]: https://github.com/syntax-tree/xast
 
