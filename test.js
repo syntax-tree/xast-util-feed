@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {atom, rss} from './index.js'
+import * as mod from './index.js'
 
 // Hack so the tests don’t need updating everytime…
 const ODate = global.Date
@@ -10,6 +11,14 @@ const ODate = global.Date
 global.Date = function (/** @type {string | number} */ value) {
   return new ODate(value || 1_234_567_890_123)
 }
+
+test('core', () => {
+  assert.deepEqual(
+    Object.keys(mod).sort(),
+    ['atom', 'rss'],
+    'should expose the public api'
+  )
+})
 
 test('rss', () => {
   assert.throws(
