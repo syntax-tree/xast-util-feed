@@ -1,20 +1,18 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {atom, rss} from './index.js'
 
 // Hack so the tests don’t need updating everytime…
 const ODate = global.Date
 
+// Note: this isn’t reset.
 // @ts-expect-error
 global.Date = function (/** @type {string | number} */ value) {
   return new ODate(value || 1_234_567_890_123)
 }
 
-test.onFinish(() => {
-  global.Date = ODate
-})
-
-test('rss', (t) => {
-  t.throws(
+test('rss', () => {
+  assert.throws(
     () => {
       // @ts-expect-error runtime
       rss()
@@ -23,7 +21,7 @@ test('rss', (t) => {
     'should throw when w/o `title`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       // @ts-expect-error runtime
       rss({title: 'a'})
@@ -32,7 +30,7 @@ test('rss', (t) => {
     'should throw when w/o `url`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       rss({title: 'a', url: 'b'})
     },
@@ -40,7 +38,7 @@ test('rss', (t) => {
     'should throw on incorrect `url`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}),
     {
       type: 'root',
@@ -104,7 +102,7 @@ test('rss', (t) => {
     'should support `title` and `url`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({
       title: 'a',
       url: 'https://example.com',
@@ -171,7 +169,7 @@ test('rss', (t) => {
     'should support `feedUrl` (for `atom:link`)'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com', description: 'b'}).children[1],
     {
       type: 'element',
@@ -223,7 +221,7 @@ test('rss', (t) => {
     'should support `description`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com', lang: 'nl-NL'}).children[1],
     {
       type: 'element',
@@ -287,7 +285,7 @@ test('rss', (t) => {
     'should support `lang`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com', author: 'b'}).children[1],
     {
       type: 'element',
@@ -351,7 +349,7 @@ test('rss', (t) => {
     'should support `author` (for copyright)'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com', tags: ['b', 'c']}).children[1],
     {
       type: 'element',
@@ -415,7 +413,7 @@ test('rss', (t) => {
     'should support `tags`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [{}])
     },
@@ -423,7 +421,7 @@ test('rss', (t) => {
     'should throw when entry w/o `title` or `description`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [{title: 'b'}]).children[1],
     {
       type: 'element',
@@ -488,7 +486,7 @@ test('rss', (t) => {
     'should support an item w/ `title`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [{description: 'b'}])
       .children[1],
     {
@@ -554,7 +552,7 @@ test('rss', (t) => {
     'should support an item w/ `description`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {descriptionHtml: '<p>b</p>'}
     ]).children[1],
@@ -621,7 +619,7 @@ test('rss', (t) => {
     'should support an item w/ `descriptionHtml`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {description: 'b', descriptionHtml: '<p>b</p>'}
     ]).children[1],
@@ -688,7 +686,7 @@ test('rss', (t) => {
     'should prefer `descriptionHtml` over `description`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [{title: 'b', author: 'c'}])
       .children[1],
     {
@@ -760,7 +758,7 @@ test('rss', (t) => {
     'should support an item w/ `author` (`dc:creator`)'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       rss({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
@@ -769,7 +767,7 @@ test('rss', (t) => {
     'should throw on author w/o `name`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c'}}
     ]).children[1],
@@ -842,7 +840,7 @@ test('rss', (t) => {
     'should support an item w/ `author` as object (`author`)'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', email: 'd'}}
     ]).children[1],
@@ -921,7 +919,7 @@ test('rss', (t) => {
     'should support an item w/ `author` as object w/ `email` (`author`)'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', url: 'https://example.com/b.html'}
     ]).children[1],
@@ -1004,7 +1002,7 @@ test('rss', (t) => {
     'should support an item w/ `link` (`link` and `guid`)'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', tags: ['a', 'b']}
     ]).children[1],
@@ -1083,7 +1081,7 @@ test('rss', (t) => {
     'should support an item w/ `tags`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', published: 1_231_111_111_111}
     ]).children[1],
@@ -1164,7 +1162,7 @@ test('rss', (t) => {
     'should support an item w/ `published`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {title: 'b', modified: 1_231_111_111_111}
     ]).children[1],
@@ -1237,7 +1235,7 @@ test('rss', (t) => {
     'should support an item w/ `modified`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [
         // @ts-expect-error runtime.
@@ -1248,7 +1246,7 @@ test('rss', (t) => {
     'should throw on enclosure w/o `url`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [
         // @ts-expect-error runtime.
@@ -1259,7 +1257,7 @@ test('rss', (t) => {
     'should throw on enclosure w/o `size`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [
         // @ts-expect-error runtime.
@@ -1270,7 +1268,7 @@ test('rss', (t) => {
     'should throw on enclosure w/o `type`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       rss({title: 'a', url: 'https://example.com'}, [
         {title: 'b', enclosure: {url: 'c', size: 1, type: 'd'}}
@@ -1280,7 +1278,7 @@ test('rss', (t) => {
     'should throw on incorrect `url` in enclosure'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     rss({title: 'a', url: 'https://example.com'}, [
       {
         title: 'b',
@@ -1363,12 +1361,10 @@ test('rss', (t) => {
     },
     'should support an item w/ `enclosure`'
   )
-
-  t.end()
 })
 
-test('atom', (t) => {
-  t.throws(
+test('atom', () => {
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       atom()
@@ -1377,7 +1373,7 @@ test('atom', (t) => {
     'should throw when w/o `title`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       atom({title: 'a'})
@@ -1386,7 +1382,7 @@ test('atom', (t) => {
     'should throw when w/o `url`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', url: 'b'})
     },
@@ -1394,7 +1390,7 @@ test('atom', (t) => {
     'should throw on incorrect `url`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com'}),
     {
       type: 'root',
@@ -1441,7 +1437,7 @@ test('atom', (t) => {
     'should support `title` and `url`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({
       title: 'a',
       url: 'https://example.com',
@@ -1492,7 +1488,7 @@ test('atom', (t) => {
     'should support `feedUrl` (for `link[rel=self]`)'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com', description: 'b'})
       .children[1],
     {
@@ -1535,7 +1531,7 @@ test('atom', (t) => {
     'should support `description`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com', lang: 'nl-NL'}).children[1],
     {
       type: 'element',
@@ -1572,7 +1568,7 @@ test('atom', (t) => {
     'should support `lang`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com', author: 'b'}).children[1],
     {
       type: 'element',
@@ -1628,7 +1624,7 @@ test('atom', (t) => {
     'should support `author`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com', tags: ['b', 'c']})
       .children[1],
     {
@@ -1678,7 +1674,7 @@ test('atom', (t) => {
     'should support `tags`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', url: 'https://example.com'}, [{}])
     },
@@ -1686,7 +1682,7 @@ test('atom', (t) => {
     'should throw when entry w/o `title` or `description`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', url: 'https://example.com'}, [{title: 'b'}])
     },
@@ -1694,7 +1690,7 @@ test('atom', (t) => {
     'should throw w/ entry (and channel) w/o `author`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c'}
       // @ts-expect-error hush.
@@ -1715,7 +1711,7 @@ test('atom', (t) => {
     'should support an item w/ `title`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {description: 'c'}
       // @ts-expect-error hush.
@@ -1736,7 +1732,7 @@ test('atom', (t) => {
     'should support an item w/ `description`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {descriptionHtml: '<p>c</p>'}
       // @ts-expect-error hush.
@@ -1757,7 +1753,7 @@ test('atom', (t) => {
     'should support an item w/ `descriptionHtml`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {description: 'c', descriptionHtml: '<p>c</p>'}
       // @ts-expect-error hush.
@@ -1778,7 +1774,7 @@ test('atom', (t) => {
     'should prefer `descriptionHtml` over `description`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', author: 'd'}
       // @ts-expect-error hush.
@@ -1812,7 +1808,7 @@ test('atom', (t) => {
     'should support an item w/ `author`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       // @ts-expect-error runtime.
       atom({title: 'a', url: 'https://example.com'}, [{title: 'b', author: {}}])
@@ -1821,7 +1817,7 @@ test('atom', (t) => {
     'should throw on author w/o `name`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c'}}
       // @ts-expect-error hush.
@@ -1855,7 +1851,7 @@ test('atom', (t) => {
     'should support an item w/ `author` as object'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', email: 'd'}}
       // @ts-expect-error hush.
@@ -1895,7 +1891,7 @@ test('atom', (t) => {
     'should support an item w/ `author` as object w/ `email`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', url: 'https://example.com'}, [
         {title: 'b', author: {name: 'c', url: 'd'}}
@@ -1905,7 +1901,7 @@ test('atom', (t) => {
     'should throw on author w/ incorrect `url`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', url: 'https://example.com'}, [
       {title: 'b', author: {name: 'c', url: 'https://example.org'}}
       // @ts-expect-error hush.
@@ -1945,7 +1941,7 @@ test('atom', (t) => {
     'should support an item w/ `author` as object w/ `url`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', url: 'https://example.com/b.html'}
       // @ts-expect-error hush.
@@ -1978,7 +1974,7 @@ test('atom', (t) => {
     'should support an item w/ `link`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', tags: ['x', 'y']}
       // @ts-expect-error hush.
@@ -1999,7 +1995,7 @@ test('atom', (t) => {
     'should support an item w/ `tags`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', published: 1_231_111_111_111}
       // @ts-expect-error hush.
@@ -2026,7 +2022,7 @@ test('atom', (t) => {
     'should support an item w/ `published`'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {title: 'c', modified: 1_231_111_111_111}
       // @ts-expect-error hush.
@@ -2053,7 +2049,7 @@ test('atom', (t) => {
     'should support an item w/ `modified`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         // @ts-expect-error runtime.
@@ -2064,7 +2060,7 @@ test('atom', (t) => {
     'should throw on enclosure w/o `url`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         // @ts-expect-error runtime.
@@ -2075,7 +2071,7 @@ test('atom', (t) => {
     'should throw on enclosure w/o `size`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         // @ts-expect-error runtime.
@@ -2086,7 +2082,7 @@ test('atom', (t) => {
     'should throw on enclosure w/o `type`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       atom({title: 'a', author: 'b', url: 'https://example.com'}, [
         {title: 'c', enclosure: {url: 'd', size: 1, type: 'e'}}
@@ -2096,7 +2092,7 @@ test('atom', (t) => {
     'should throw on incorrect `url` in enclosure'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     atom({title: 'a', author: 'b', url: 'https://example.com'}, [
       {
         title: 'c',
@@ -2134,6 +2130,4 @@ test('atom', (t) => {
     },
     'should support an item w/ `enclosure`'
   )
-
-  t.end()
 })
