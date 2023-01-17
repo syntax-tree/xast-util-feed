@@ -8,7 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[xast][] utility to build (web) feeds ([RSS][], [Atom][]).
+[xast][] utility to build (web) feeds ([RSS][rss-spec], [Atom][atom-spec]).
 
 ## Contents
 
@@ -17,9 +17,11 @@
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`rss(channel, data)`](#rsschannel-data)
     *   [`atom(channel, data)`](#atomchannel-data)
-    *   [`Channel`](#channel-1)
+    *   [`rss(channel, data)`](#rsschannel-data)
+    *   [`Author`](#author)
+    *   [`Channel`](#channel)
+    *   [`Enclosure`](#enclosure)
     *   [`Entry`](#entry)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -52,7 +54,7 @@ Just using either RSS or Atom is probably fine: no need to do both.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install xast-util-feed
@@ -165,142 +167,194 @@ Yields (pretty printed):
 
 ## API
 
-This package exports the identifiers `atom` and `rss`.
+This package exports the identifiers [`atom`][atom] and [`rss`][rss].
 There is no default export.
-
-### `rss(channel, data)`
-
-Build an RSS feed.
-
-###### `channel`
-
-See [`Channel`][channel].
-
-###### `data`
-
-List of [`Entry`][entry] objects.
-
-###### Returns
-
-[xast][] root ([`Root`][root]).
 
 ### `atom(channel, data)`
 
-Build an Atom feed.
-Same API as `rss` otherwise.
+Build an [Atom][atom-spec] feed.
+
+###### Parameters
+
+*   `channel` ([`Channel`][channel])
+    — data on the feed (the group of items)
+*   `data` ([`Array<Entry>`][entry], optional)
+    — list of entries
+
+###### Returns
+
+Atom feed ([`Root`][root]).
+
+### `rss(channel, data)`
+
+Build an [RSS][rss-spec] feed.
+
+###### Parameters
+
+*   `channel` ([`Channel`][channel])
+    — data on the feed (the group of items)
+*   `data` ([`Array<Entry>`][entry], optional)
+    — list of entries
+
+###### Returns
+
+RSS feed ([`Root`][root]).
+
+### `Author`
+
+Author object (TypeScript type).
+
+##### Fields
+
+###### `name`
+
+Name (`string`, **required**, example: `'Acme, Inc.'` or `'Jane Doe'`).
+
+###### `email`
+
+Email address (`string`, optional, ,example: `john@example.org`)
+
+###### `url`
+
+URL to author (`string`, optional, example: `'https://example.org/john'`).
+
+`url` is used in `atom`, not in `rss`.
 
 ### `Channel`
 
-Data on the feed (the group of items).
+Data on the feed (the group of items) (TypeScript type).
 
-###### `channel.title`
+##### Fields
+
+###### `title`
 
 Title of the channel (`string`, **required**, example: `Zimbabwe | The
 Guardian`).
 
-###### `channel.url`
+###### `url`
 
 Full URL to the *site* (`string`, **required**, example:
 `'https://www.theguardian.com/world/zimbabwe'`).
 
-###### `channel.feedUrl`
+###### `feedUrl`
 
 Full URL to this channel (`string?`, example: `'https://www.adweek.com/feed/'`).
+
 Make sure to pass different ones to `rss` and `atom` when you build both!
+
 You *should* define this.
 
-###### `channel.description`
+###### `description`
 
 Short description of the channel (`string?`, example: `Album Reviews`).
+
 You *should* define this.
 
-###### `channel.lang`
+###### `lang`
 
 [BCP 47][bcp47] language tag representing the language of the whole channel
 (`string?`, example: `'fr-BE'`).
+
 You *should* define this.
 
-###### `channel.author`
+###### `author`
 
-Optional author of the whole channel.
+Optional author of the whole channel (`string` or [`Author`][author]).
+
 Either `string`, in which case it’s as passing `{name: string}`.
-Or an object with the following fields:
+Or an author object.
 
-*   `name` (`string`, example: `'Acme, Inc.'` or `'Jane Doe'`)
-*   `email` (`string?`, example: `john@example.org`)
-*   `url` (`string?`, example: `'https://example.org/john'`)
-
-`url` is used in `atom`, not in `rss`.
-
-###### `channel.tags`
+###### `tags`
 
 Categories of the channel (`Array<string>?`, example: `['JavaScript',
 'React']`).
 
+### `Enclosure`
+
+Media (TypeScript type).
+
+##### Fields
+
+###### `url`
+
+Full URL to the resource (`string`, **required**, example:
+`'http://dallas.example.com/joebob_050689.mp3'`).
+
+###### `size`
+
+Resource size in bytes (`number`, **required**, example: `24986239`).
+
+###### `type`
+
+Mime type of the resource (`string`, **required**, example: `'audio/mpeg'`).
+
 ### `Entry`
 
-Data on a single item.
+Data on a single item (TypeScript type).
 
-###### `entry.title`
+##### Fields
+
+###### `title`
 
 Title of the item (`string?`, example: `'Playboi Carti: Whole Lotta Red'`).
+
 Either `title`, `description`, or `descriptionHtml` must be set.
 
-###### `entry.description`
+###### `description`
 
 Either the whole post or an excerpt of it (`string?`, example: `'Lorem'`).
+
 Should be plain text.
 `descriptionHtml` is preferred over plain text `description`.
+
 Either `title`, `description`, or `descriptionHtml` must be set.
 
-###### `entry.descriptionHtml`
+###### `descriptionHtml`
 
 Either the whole post or an excerpt of it (`string?`, example: `'<p>Lorem</p>'`).
+
 Should be serialized HTML.
 `descriptionHtml` is preferred over plain text `description`.
+
 Either `title`, `description`, or `descriptionHtml` must be set.
 
-###### `entry.author`
+###### `author`
 
-Entry version of [`channel.author`][channel-author].
+Entry version of `channel.author`.
+
 You *should* define this.
+
 For `atom`, it is required to either set `channel.author` or set `author` on all
 entries.
 
-###### `entry.url`
+###### `url`
 
 Full URL of this entry on the *site* (`string?`, example:
 `'https://pitchfork.com/reviews/albums/roberta-flack-first-take'`).
 
-###### `entry.published`
+###### `published`
 
 When the entry was first published (`Date` or value for `new Date(x)`,
 optional).
 
-###### `entry.modified`
+###### `modified`
 
 When the entry was last modified (`Date` or value for `new Date(x)`, optional).
 
-###### `entry.tags`
+###### `tags`
 
 Categories of the entry (`Array<string>?`, example: `['laravel',
 'debugging']`).
 
-###### `entry.enclosure`
+###### `enclosure`
 
-An enclosure, such as an image or audio, is an object with the following fields:
-
-*   `url` (`string`, example: `'http://dallas.example.com/joebob_050689.mp3'`)
-    — full URL to the resource
-*   `size` (`number`, example: `24986239`)
-    — resource size in bytes
-*   `type` (`string`, example: `'audio/mpeg'`)
-    — mime type of the resource
+Attached media ([`Enclosure?`][enclosure]).
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional types `Author`, `Enclosure`, `Channel`, and `Entry`.
+It exports the additional types [`Author`][author], [`Channel`][channel],
+[`Enclosure`][enclosure], and [`Entry`][entry].
 
 ## Compatibility
 
@@ -334,7 +388,7 @@ abide by its terms.
 
 ## License
 
-[MIT][license] © [Titus Wormer][author]
+[MIT][license] © [Titus Wormer][wooorm]
 
 <!-- Definitions -->
 
@@ -374,7 +428,7 @@ abide by its terms.
 
 [license]: license
 
-[author]: https://wooorm.com
+[wooorm]: https://wooorm.com
 
 [health]: https://github.com/syntax-tree/.github
 
@@ -388,14 +442,20 @@ abide by its terms.
 
 [root]: https://github.com/syntax-tree/xast#root
 
-[rss]: https://www.rssboard.org/rss-specification
+[rss-spec]: https://www.rssboard.org/rss-specification
 
-[atom]: https://tools.ietf.org/html/rfc4287
+[atom-spec]: https://tools.ietf.org/html/rfc4287
 
 [bcp47]: https://github.com/wooorm/bcp-47
 
+[atom]: #atomchannel-data
+
+[rss]: #rsschannel-data
+
+[author]: #author
+
 [channel]: #channel
 
-[entry]: #entry
+[enclosure]: #enclosure
 
-[channel-author]: #channelauthor
+[entry]: #entry
