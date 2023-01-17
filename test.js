@@ -5,7 +5,7 @@ import {atom, rss} from './index.js'
 const ODate = global.Date
 
 // @ts-expect-error
-global.Date = function (/** @type {string|number} */ value) {
+global.Date = function (/** @type {string | number} */ value) {
   return new ODate(value || 1_234_567_890_123)
 }
 
