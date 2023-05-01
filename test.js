@@ -1998,6 +1998,18 @@ test('atom', () => {
           name: 'title',
           attributes: {},
           children: [{type: 'text', value: 'c'}]
+        },
+        {
+          type: 'element',
+          name: 'category',
+          attributes: {term: 'x'},
+          children: []
+        },
+        {
+          type: 'element',
+          name: 'category',
+          attributes: {term: 'y'},
+          children: []
         }
       ]
     },
