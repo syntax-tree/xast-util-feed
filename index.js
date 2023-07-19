@@ -1,7 +1,7 @@
 /**
  * @typedef {import('./lib/types.js').Author} Author
- * @typedef {import('./lib/types.js').Enclosure} Enclosure
  * @typedef {import('./lib/types.js').Channel} Channel
+ * @typedef {import('./lib/types.js').Enclosure} Enclosure
  * @typedef {import('./lib/types.js').Entry} Entry
  */
 
