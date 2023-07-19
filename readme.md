@@ -63,14 +63,14 @@ npm install xast-util-feed
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {atom, rss} from 'https://esm.sh/xast-util-feed@1'
+import {atom, rss} from 'https://esm.sh/xast-util-feed@2'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {atom, rss} from 'https://esm.sh/xast-util-feed@1?bundle'
+  import {atom, rss} from 'https://esm.sh/xast-util-feed@2?bundle'
 </script>
 ```
 
