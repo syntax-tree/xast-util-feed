@@ -8,7 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[xast][] utility to build (web) feeds ([RSS][rss-spec], [Atom][atom-spec]).
+[xast][] utility to build (web) feeds ([RSS][], [Atom][]).
 
 ## Contents
 
@@ -54,7 +54,7 @@ Just using either RSS or Atom is probably fine: no need to do both.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 14.14+ and 16.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install xast-util-feed
@@ -167,18 +167,18 @@ Yields (pretty printed):
 
 ## API
 
-This package exports the identifiers [`atom`][atom] and [`rss`][rss].
+This package exports the identifiers [`atom`][api-atom] and [`rss`][api-rss].
 There is no default export.
 
 ### `atom(channel, data)`
 
-Build an [Atom][atom-spec] feed.
+Build an [Atom][] feed.
 
 ###### Parameters
 
-*   `channel` ([`Channel`][channel])
+*   `channel` ([`Channel`][api-channel])
     — data on the feed (the group of items)
-*   `data` ([`Array<Entry>`][entry], optional)
+*   `data` ([`Array<Entry>`][api-entry], optional)
     — list of entries
 
 ###### Returns
@@ -187,13 +187,13 @@ Atom feed ([`Root`][root]).
 
 ### `rss(channel, data)`
 
-Build an [RSS][rss-spec] feed.
+Build an [RSS][] feed.
 
 ###### Parameters
 
-*   `channel` ([`Channel`][channel])
+*   `channel` ([`Channel`][api-channel])
     — data on the feed (the group of items)
-*   `data` ([`Array<Entry>`][entry], optional)
+*   `data` ([`Array<Entry>`][api-entry], optional)
     — list of entries
 
 ###### Returns
@@ -259,7 +259,7 @@ You *should* define this.
 
 ###### `author`
 
-Optional author of the whole channel (`string` or [`Author`][author]).
+Optional author of the whole channel (`string` or [`Author`][api-author]).
 
 Either `string`, in which case it’s as passing `{name: string}`.
 Or an author object.
@@ -348,20 +348,25 @@ Categories of the entry (`Array<string>?`, example: `['laravel',
 
 ###### `enclosure`
 
-Attached media ([`Enclosure?`][enclosure]).
+Attached media ([`Enclosure?`][api-enclosure]).
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional types [`Author`][author], [`Channel`][channel],
-[`Enclosure`][enclosure], and [`Entry`][entry].
+It exports the additional types [`Author`][api-author],
+[`Channel`][api-channel],
+[`Enclosure`][api-enclosure], and
+[`Entry`][api-entry].
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `xast-util-feed@^1`,
+compatible with Node.js 12.
 
 ## Security
 
@@ -404,9 +409,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/xast-util-feed
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/xast-util-feed.svg
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=xast-util-feed
 
-[size]: https://bundlephobia.com/result?p=xast-util-feed
+[size]: https://bundlejs.com/?q=xast-util-feed
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -442,20 +447,20 @@ abide by its terms.
 
 [root]: https://github.com/syntax-tree/xast#root
 
-[rss-spec]: https://www.rssboard.org/rss-specification
+[rss]: https://www.rssboard.org/rss-specification
 
-[atom-spec]: https://tools.ietf.org/html/rfc4287
+[atom]: https://tools.ietf.org/html/rfc4287
 
 [bcp47]: https://github.com/wooorm/bcp-47
 
-[atom]: #atomchannel-data
+[api-atom]: #atomchannel-data
 
-[rss]: #rsschannel-data
+[api-rss]: #rsschannel-data
 
-[author]: #author
+[api-author]: #author
 
-[channel]: #channel
+[api-channel]: #channel
 
-[enclosure]: #enclosure
+[api-enclosure]: #enclosure
 
-[entry]: #entry
+[api-entry]: #entry
