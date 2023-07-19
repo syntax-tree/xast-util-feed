@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {atom, rss} from './index.js'
+import {atom, rss} from 'xast-util-feed'
 
 // Hack so the tests don’t need updating everytime…
 const ODate = global.Date
@@ -19,7 +19,7 @@ function wrapperDate(value) {
 
 test('core', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+    assert.deepEqual(Object.keys(await import('xast-util-feed')).sort(), [
       'atom',
       'rss'
     ])
